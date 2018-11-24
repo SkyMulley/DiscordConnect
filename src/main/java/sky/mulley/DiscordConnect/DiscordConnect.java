@@ -2,22 +2,25 @@ package sky.mulley.DiscordConnect;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-import sky.mulley.DiscordConnect.Commands.MessageCore;
+import sky.mulley.DiscordConnect.Commands.CommandCore;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.handle.obj.IChannel;
 
 public class DiscordConnect extends JavaPlugin {
-    private static String token;
+    private String token;
     private IDiscordClient client;
-    private static IChannel textChannel;
-    private static IChannel adminChannel;
+    private IChannel textChannel;
+    private IChannel adminChannel;
+    private String BOT_PREFIX;
+    private CommandCore cc;
 
     @Override
     public void onEnable() {
         //Get all the config file grabs here
+        cc = new CommandCore(BOT_PREFIX);
         client = buildDiscordClient(token);
-        client.getDispatcher().registerListener(new MessageCore());
+        client.getDispatcher().registerListener(new MessageListener(cc));
         client.login();
         Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
     }
@@ -33,4 +36,6 @@ public class DiscordConnect extends JavaPlugin {
                 .withRecommendedShardCount()
                 .build();
     }
+
+    public CommandCore getCommandCore() { return cc;}
 }
