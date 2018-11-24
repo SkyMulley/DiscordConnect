@@ -9,9 +9,7 @@ public class CommandCore {
     private List<BaseCommand> commandList;
     private String BOT_PREFIX;
     private boolean hasStarted = false;
-    public CommandCore(String BOT_PREFIX) {
-        this.BOT_PREFIX = BOT_PREFIX;
-    }
+    public CommandCore(String BOT_PREFIX) { this.BOT_PREFIX = BOT_PREFIX; }
 
     public void addCommand(BaseCommand command) {commandList.add(command);}
     public void removeCommand(BaseCommand command) {commandList.remove(command);}
