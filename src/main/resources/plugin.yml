@@ -1,5 +1,5 @@
 name: DiscordConnect
 version: 1.0
 author: Sky
-main: sky.mulley.DiscordConnect
+main: sky.mulley.DiscordConnect.DiscordConnect
 load: POSTWORLD
