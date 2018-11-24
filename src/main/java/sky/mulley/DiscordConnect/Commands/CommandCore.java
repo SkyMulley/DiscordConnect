@@ -5,10 +5,11 @@ import sky.mulley.DiscordConnect.Commands.General.Help;
 import sky.mulley.DiscordConnect.Commands.General.Ping;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandCore {
-    private List<BaseCommand> commandList;
+    private List<BaseCommand> commandList = new ArrayList<>();
     private String BOT_PREFIX;
     private boolean hasStarted = false;
     public CommandCore(String BOT_PREFIX) { this.BOT_PREFIX = BOT_PREFIX; }
