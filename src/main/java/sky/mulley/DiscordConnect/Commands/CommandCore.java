@@ -1,6 +1,7 @@
 package sky.mulley.DiscordConnect.Commands;
 
 import org.bukkit.Bukkit;
+import sky.mulley.DiscordConnect.Commands.General.Ping;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 import java.util.List;
@@ -33,6 +34,6 @@ public class CommandCore {
     }
 
     private void setupCommands() {
-
+        addCommand(new Ping());
     }
 }
