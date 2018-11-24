@@ -1,0 +1,10 @@
+Discord Bot Token:
+  token: ''
+Discord Bot Prefix:
+  botprefix: ''
+Minecraft Text Channel ID (Leave blank to disable):
+  textchannel: 0
+Minecraft Admin Channel ID (Leave blank to disable):
+  adminchannel: 0
+Minecraft Text Channel Guild ID (Leave blank if you're not using the server link):
+  mcguild: 0

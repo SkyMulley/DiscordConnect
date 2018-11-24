@@ -1,5 +1,7 @@
 package sky.mulley.DiscordConnect;
 
+import com.vdurmont.emoji.Emoji;
+import com.vdurmont.emoji.EmojiManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import sky.mulley.DiscordConnect.Commands.CommandCore;
@@ -32,11 +34,21 @@ public class DiscordConnect extends JavaPlugin {
         client.login();
         loadMoreConfig();
         Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
-        if(gotTextChannel=true) {listener = new ServerSync(this, textChannel); getServer().getPluginManager().registerEvents(listener,this); ml.setChannel(textChannel);}
+        if(gotTextChannel=true) {
+            listener = new ServerSync(this, textChannel);
+            getServer().getPluginManager().registerEvents(listener,this);
+            ml.setChannel(textChannel);
+            Emoji check = EmojiManager.getForAlias("white_check_mark");
+            guild.getChannelByID(textChannel.getLongID()).sendMessage(check+" Server has started!");
+        }
     }
 
     @Override
     public void onDisable() {
+        if(gotTextChannel=true) {
+            Emoji octagonal = EmojiManager.getForAlias("octagonal_sign");
+            guild.getChannelByID(textChannel.getLongID()).sendMessage(octagonal+" Server has stopped!");
+        }
         if(client!=null) { client.logout();}
     }
 
@@ -59,12 +71,7 @@ public class DiscordConnect extends JavaPlugin {
             File file = new File(getDataFolder(),"config.yml");
             if(!file.exists()) {
                 getLogger().info("[DiscordConnect] Configuration not found, making a new one and shutting down.");
-                this.getConfig().createSection("Discord Bot Token").set("token","");
-                this.getConfig().createSection("Discord Bot Prefix").set("botprefix","");
-                this.getConfig().createSection("Minecraft Text Channel ID (Leave blank to disable)").set("textchannel",0);
-                this.getConfig().createSection("Minecraft Admin Channel ID (Leave blank to disable)").set("adminchannel",0);
-                this.getConfig().createSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").set("mcguild",0);
-                saveConfig();
+                saveDefaultConfig();
                 getServer().getPluginManager().disablePlugin(this);
             } else {
                 token = (String) this.getConfig().getConfigurationSection("Discord Bot Token").getValues(false).get("token");
@@ -76,11 +83,19 @@ public class DiscordConnect extends JavaPlugin {
     }
 
     private void loadMoreConfig() {
-        try { long guildl = (Integer) this.getConfig().getConfigurationSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").getValues(false).get("mcguild");
-            guild = client.getGuildByID(guildl); } catch(Exception e) { gotTextChannel = false;gotAdminChannel = false; }
-        try {long textChannell = (Integer) this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel");
-            textChannel = guild.getChannelByID(textChannell); } catch(Exception e) { gotTextChannel = false; textChannel=null; }
-        try { long adminChannell = (Integer) this.getConfig().getConfigurationSection("Minecraft Admin Channel ID (Leave blank to disable)").getValues(false).get("adminchannel");
-            adminChannel = guild.getChannelByID(adminChannell); } catch (Exception e) { gotAdminChannel = false;}
+        gotTextChannel = true;
+        gotAdminChannel = true;
+        try {
+            guild = client.getGuildByID(Long.parseLong(this.getConfig().getConfigurationSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").getValues(false).get("mcguild").toString())); } catch(Exception e) {
+            Bukkit.getLogger().info("Failed to get Guild details from config (Could be empty or invalid, disabling MC Links): "+e);
+            gotTextChannel = false;gotAdminChannel = false;textChannel=null; }
+        try {
+            textChannel = client.getGuildByID(guild.getLongID()).getChannelByID(Long.parseLong(this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel").toString())); } catch(Exception e) {
+            Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat): "+e.getStackTrace().toString());
+            gotTextChannel = false; textChannel=null; }
+        try {
+            adminChannel = client.getGuildByID(guild.getLongID()).getChannelByID(Long.parseLong(this.getConfig().getConfigurationSection("Minecraft Admin Channel ID (Leave blank to disable)").getValues(false).get("adminchannel").toString())); } catch (Exception e) {
+            Bukkit.getLogger().info("Failed to get Admin Console details from config (Could be empty or invalid, disabling MC Admin Console)"+e);
+            gotAdminChannel = false;}
     }
 }
