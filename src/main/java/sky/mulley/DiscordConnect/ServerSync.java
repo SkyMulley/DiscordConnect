@@ -22,16 +22,16 @@ public class ServerSync implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        channel.sendMessage(plus+event.getJoinMessage());
+        //channel.sendMessage(plus+event.getJoinMessage());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        channel.sendMessage(minus+event.getQuitMessage());
+        //channel.sendMessage(minus+event.getQuitMessage());
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        channel.sendMessage(skull+event.getDeathMessage());
+        //channel.sendMessage(skull+event.getDeathMessage());
     }
 }
