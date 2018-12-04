@@ -1,5 +1,6 @@
 package sky.mulley.DiscordConnect.Commands;
 
+import sky.mulley.DiscordConnect.GeneralLogic.MessageEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 public abstract class BaseCommand {
@@ -13,5 +14,5 @@ public abstract class BaseCommand {
     public String getUsage() { return Usage;}
     public boolean isHelpViewable() { return helpViewable;}
 
-    public boolean executeCommand(MessageReceivedEvent e, String[] argArray) { return true; }
+    public boolean executeCommand(MessageEvent e, String[] argArray) { return true; }
 }

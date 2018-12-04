@@ -1,8 +1,7 @@
 package sky.mulley.DiscordConnect.Commands;
 
 import org.bukkit.Bukkit;
-import sky.mulley.DiscordConnect.Commands.General.Help;
-import sky.mulley.DiscordConnect.Commands.General.Ping;
+import sky.mulley.DiscordConnect.GeneralLogic.MessageEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ public class CommandCore {
     public void removeCommand(BaseCommand command) {commandList.remove(command);}
     public List<BaseCommand> getCommands() {return commandList;}
 
-    public boolean commandCheck(MessageReceivedEvent event) {
-        if(!hasStarted) { setupCommands(); hasStarted = false; }
+    public boolean commandCheck(MessageEvent event) {
         String[] argArray = event.getMessage().getContent().split(" ");
         if (argArray.length == 0 || !argArray[0].startsWith(BOT_PREFIX)) {
             return false;
@@ -33,10 +31,5 @@ public class CommandCore {
             }
         }
         return false;
-    }
-
-    private void setupCommands() {
-        addCommand(new Ping());
-        addCommand(new Help(commandList));
     }
 }

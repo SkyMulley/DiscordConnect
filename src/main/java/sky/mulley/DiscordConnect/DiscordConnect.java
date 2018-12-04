@@ -6,6 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import sky.mulley.DiscordConnect.Commands.CommandCore;
+import sky.mulley.DiscordConnect.Listeners.MessageListener;
+import sky.mulley.DiscordConnect.Listeners.ServerSync;
+import sky.mulley.DiscordConnect.Modules.DCModule;
+import sky.mulley.DiscordConnect.Modules.ModuleManager;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 
@@ -23,6 +27,7 @@ public class DiscordConnect extends JavaPlugin {
     private MessageListener ml;
     private boolean gotTextChannel = false;
     private boolean gotAdminChannel = false;
+    private ModuleManager moduleManager = new ModuleManager();
 
     @Override
     public void onEnable() {
@@ -33,6 +38,7 @@ public class DiscordConnect extends JavaPlugin {
         client.login();
         Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
         loadMoreConfig();
+        getModuleManager().addModule(new DCModule());
         if(gotTextChannel) {
             BukkitScheduler scheduler = getServer().getScheduler();
             scheduler.scheduleSyncDelayedTask(this, new Runnable() {
@@ -49,7 +55,8 @@ public class DiscordConnect extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if(gotTextChannel=true) {
+        Bukkit.getLogger().info("Ch: "+gotTextChannel);
+        if(gotTextChannel) {
             Emoji octagonal = EmojiManager.getForAlias("octagonal_sign");
             client.getChannelByID(textChannel).sendMessage(octagonal.getUnicode()+" **Server has stopped**");
         }
@@ -66,6 +73,8 @@ public class DiscordConnect extends JavaPlugin {
     public CommandCore getCommandCore() { return cc;}
 
     public IDiscordClient getBotClient() { return client;}
+
+    public ModuleManager getModuleManager() { return moduleManager;}
 
     private void loadConfig() {
         try {
@@ -87,14 +96,14 @@ public class DiscordConnect extends JavaPlugin {
     }
 
     private void loadMoreConfig() {
-        gotTextChannel = true;
         gotAdminChannel = true;
+        gotTextChannel = true;
         try {
-            guild = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").getValues(false).get("mcguild")); Bukkit.getLogger().info("[D2M]"+guild); } catch(Exception e) {
+            guild = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").getValues(false).get("mcguild")); } catch(Exception e) {
             Bukkit.getLogger().info("Failed to get Guild details from config (Could be empty or invalid, disabling MC Links): "+e);
             gotTextChannel = false;gotAdminChannel = false;textChannel=0; }
         try {
-            textChannel = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel"));Bukkit.getLogger().info("[D2M]"+textChannel); } catch(Exception e) {
+            textChannel = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel")); } catch(Exception e) {
             Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat): "+e.fillInStackTrace());
             gotTextChannel = false; textChannel=0; }
         try {

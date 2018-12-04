@@ -1,12 +1,14 @@
-package sky.mulley.DiscordConnect;
+package sky.mulley.DiscordConnect.Listeners;
 
 import com.vdurmont.emoji.Emoji;
 import com.vdurmont.emoji.EmojiManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import sky.mulley.DiscordConnect.DiscordConnect;
 import sx.blah.discord.handle.obj.IChannel;
 
 public class ServerSync implements org.bukkit.event.Listener {
@@ -22,16 +24,21 @@ public class ServerSync implements org.bukkit.event.Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        //channel.sendMessage(plus+event.getJoinMessage());
+        channel.sendMessage(plus+event.getJoinMessage());
     }
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-        //channel.sendMessage(minus+event.getQuitMessage());
+        channel.sendMessage(minus+event.getQuitMessage());
     }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        //channel.sendMessage(skull+event.getDeathMessage());
+        channel.sendMessage(skull+event.getDeathMessage());
+    }
+
+    @EventHandler
+    public void onPlayerTalk(AsyncPlayerChatEvent event) {
+        channel.sendMessage(event.getPlayer().getName()+" | "+event.getMessage());
     }
 }

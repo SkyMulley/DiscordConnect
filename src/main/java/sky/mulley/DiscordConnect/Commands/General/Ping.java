@@ -1,6 +1,7 @@
 package sky.mulley.DiscordConnect.Commands.General;
 
 import sky.mulley.DiscordConnect.Commands.BaseCommand;
+import sky.mulley.DiscordConnect.GeneralLogic.MessageEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IMessage;
 
@@ -17,7 +18,7 @@ public class Ping extends BaseCommand {
     }
 
     @Override
-    public boolean executeCommand(MessageReceivedEvent event, String[] argArray) {
+    public boolean executeCommand(MessageEvent event, String[] argArray) {
         LocalDateTime sentTime = LocalDateTime.ofInstant(event.getMessage().getTimestamp(), ZoneId.systemDefault());
         IMessage probe = event.getChannel().sendMessage("Waiting for reply..");
         LocalDateTime repliedTime = LocalDateTime.ofInstant(probe.getTimestamp(),ZoneId.systemDefault());
