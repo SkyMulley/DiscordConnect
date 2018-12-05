@@ -1,8 +1,7 @@
 package sky.mulley.DiscordConnect.Commands.General;
 
 import sky.mulley.DiscordConnect.Commands.BaseCommand;
-import sky.mulley.DiscordConnect.GeneralLogic.MessageEvent;
-import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sky.mulley.DiscordConnect.GeneralLogic.MsgEvent;
 import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.RequestBuffer;
 
@@ -19,15 +18,15 @@ public class Help extends BaseCommand {
     }
 
     @Override
-    public boolean executeCommand(MessageEvent event, String[] argArray) {
+    public boolean executeCommand(MsgEvent event, String[] argArray) {
         EmbedBuilder builder = new EmbedBuilder();
         builder.withAuthorName("JeremieBot Help");
-        builder.withAuthorIcon(event.getAuthor().getAvatarURL());
-        builder.withFooterText("JeremieBot 3.0 | Called by "+event.getAuthor().getName());
+        builder.withAuthorIcon(event.getData().getAuthor().getAvatarURL());
+        builder.withFooterText("JeremieBot 3.0 | Called by "+event.getData().getAuthor().getName());
         for(BaseCommand CG : CC) {
             if(CG.isHelpViewable()) {builder.appendField(""+CG.getCommandName(),"Description: "+CG.getHelpMessage()+"\nUsage: "+CG.getUsage(),false);}
         }
-        RequestBuffer.request(() -> event.getChannel().sendMessage(builder.build()));
+        RequestBuffer.request(() -> event.getData().getChannel().sendMessage(builder.build()));
         return true;
     }
 }

@@ -1,8 +1,7 @@
 package sky.mulley.DiscordConnect.Commands;
 
 import org.bukkit.Bukkit;
-import sky.mulley.DiscordConnect.GeneralLogic.MessageEvent;
-import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
+import sky.mulley.DiscordConnect.GeneralLogic.MsgEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,15 +16,15 @@ public class CommandCore {
     public void removeCommand(BaseCommand command) {commandList.remove(command);}
     public List<BaseCommand> getCommands() {return commandList;}
 
-    public boolean commandCheck(MessageEvent event) {
-        String[] argArray = event.getMessage().getContent().split(" ");
+    public boolean commandCheck(MsgEvent event) {
+        String[] argArray = event.getData().getContent().split(" ");
         if (argArray.length == 0 || !argArray[0].startsWith(BOT_PREFIX)) {
             return false;
         }
         String commandStr = argArray[0].substring(BOT_PREFIX.length());
         for (BaseCommand command : commandList) {
             if(commandStr.toLowerCase().contains(command.getCommandName().toLowerCase())) {
-                Bukkit.getLogger().info("[DiscordConnect] " + event.getAuthor().getName() + " ran command " + command.getCommandName());
+                Bukkit.getLogger().info("[DiscordConnect] " + event.getData().getAuthor().getName() + " ran command " + command.getCommandName());
                 command.executeCommand(event, argArray);
                 return true;
             }
