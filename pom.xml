@@ -61,5 +61,12 @@
             <classifier>shaded</classifier>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>LATEST</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/Vault-1.6.7.jar</systemPath>
+        </dependency>
     </dependencies>
 </project>
