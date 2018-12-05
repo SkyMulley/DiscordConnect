@@ -22,7 +22,7 @@ public class Help extends BaseCommand {
         EmbedBuilder builder = new EmbedBuilder();
         builder.withAuthorName("JeremieBot Help");
         builder.withAuthorIcon(event.getData().getAuthor().getAvatarURL());
-        builder.withFooterText("JeremieBot 3.0 | Called by "+event.getData().getAuthor().getName());
+        builder.withFooterText("DiscordConnect | Called by "+event.getData().getAuthor().getName());
         for(BaseCommand CG : CC) {
             if(CG.isHelpViewable()) {builder.appendField(""+CG.getCommandName(),"Description: "+CG.getHelpMessage()+"\nUsage: "+CG.getUsage(),false);}
         }
