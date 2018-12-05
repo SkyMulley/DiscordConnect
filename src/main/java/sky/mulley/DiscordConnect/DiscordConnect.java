@@ -28,6 +28,7 @@ public class DiscordConnect extends JavaPlugin {
     private boolean gotTextChannel = false;
     private boolean gotAdminChannel = false;
     private ModuleManager moduleManager = new ModuleManager();
+    private int timeout;
 
     @Override
     public void onEnable() {
@@ -89,6 +90,7 @@ public class DiscordConnect extends JavaPlugin {
             } else {
                 token = (String) this.getConfig().getConfigurationSection("Discord Bot Token").getValues(false).get("token");
                 BOT_PREFIX = (String) this.getConfig().getConfigurationSection("Discord Bot Prefix").getValues(false).get("botprefix");
+                timeout = (int) this.getConfig().getConfigurationSection("Bot Timeout Amount (Leave this default unless you know what you're doing)").getValues(false).get("timeout");
             }
         } catch(Exception e) {
             getLogger().info("[DiscordConnect] An issue has occured loading the config file: "+e);
