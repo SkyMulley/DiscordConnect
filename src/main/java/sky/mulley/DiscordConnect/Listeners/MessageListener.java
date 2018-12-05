@@ -24,11 +24,11 @@ public class MessageListener {
         eventMsg = new MsgEvent(event.getMessage());
         if(!cc.commandCheck(eventMsg)) {
             Bukkit.getPluginManager().callEvent(msgEvent);
-        } else if (channel!=null && event.getChannel().equals(channel)) {
+        } if (channel!=null && event.getChannel().equals(channel)) {
             if(!event.getAuthor().isBot()) {
                 if (event.getAuthor().getRolesForGuild(event.getGuild()).size() != 0) {
                     IRole role = event.getAuthor().getRolesForGuild(event.getGuild()).get(0);
-                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "[Discord] " + ChatColor.WHITE + event.getAuthor().getName() + " | " + role + ": " + event.getMessage().toString());
+                    Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "[Discord] " + ChatColor.WHITE + event.getAuthor().getName() + " | " + role.getName() + ": " + event.getMessage().toString());
                 } else {
                     Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "[Discord] " + ChatColor.WHITE + event.getAuthor().getName()+": " + event.getMessage().toString());
                 }
