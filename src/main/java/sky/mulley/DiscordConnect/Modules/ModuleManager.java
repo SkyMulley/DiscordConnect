@@ -18,4 +18,6 @@ public class ModuleManager {
             modules.add(module);
         }
     }
+
+    public List<DiscordModule> getModules() {return modules;}
 }
