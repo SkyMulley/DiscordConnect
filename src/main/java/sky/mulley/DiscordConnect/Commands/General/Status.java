@@ -10,7 +10,7 @@ import sx.blah.discord.util.RequestBuffer;
 
 public class Status extends BaseCommand {
     public Status () {
-        commandName = "Status";
+        super("Status");
         helpMessage = "Get server player count and list";
         Usage = "!status";
         helpViewable = true;

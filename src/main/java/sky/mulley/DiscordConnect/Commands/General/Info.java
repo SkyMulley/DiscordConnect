@@ -7,7 +7,7 @@ import sx.blah.discord.util.RequestBuffer;
 
 public class Info extends BaseCommand {
     public Info() {
-        commandName = "Info";
+        super("Info");
         helpMessage = "Discover more about this bot!";
         Usage = "!info";
         helpViewable = true;

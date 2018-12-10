@@ -10,7 +10,7 @@ import java.time.ZoneId;
 
 public class Ping extends BaseCommand {
     public Ping () {
-        commandName = "Ping";
+        super("Ping");
         helpMessage = "Find out the latency between the server and client";
         Usage = "!ping";
         helpViewable = true;

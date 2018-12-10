@@ -10,7 +10,7 @@ import java.util.List;
 public class Help extends BaseCommand {
     private List<BaseCommand> CC;
     public Help(List<BaseCommand> CC) {
-        commandName = "Help";
+        super("Help");
         helpMessage = "See all the commands in the bot";
         Usage = "!Help";
         helpViewable = false;
