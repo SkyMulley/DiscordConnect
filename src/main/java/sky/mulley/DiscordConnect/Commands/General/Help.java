@@ -20,7 +20,7 @@ public class Help extends BaseCommand {
     @Override
     public boolean executeCommand(MsgEvent event, String[] argArray) {
         EmbedBuilder builder = new EmbedBuilder();
-        builder.withAuthorName("JeremieBot Help");
+        builder.withAuthorName("Help Menu");
         builder.withAuthorIcon(event.getData().getAuthor().getAvatarURL());
         builder.withFooterText("DiscordConnect | Called by "+event.getData().getAuthor().getName());
         for(BaseCommand CG : CC) {
