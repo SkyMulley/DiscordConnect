@@ -35,10 +35,16 @@ public class DiscordConnect extends JavaPlugin {
     public void onEnable() {
         loadConfig();
         cc = new CommandCore(BOT_PREFIX);
-        client = buildDiscordClient(token);
-        client.getDispatcher().registerListener(ml = new MessageListener(cc));
-        client.login();
-        Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
+        try {
+            client = buildDiscordClient(token);
+            client.getDispatcher().registerListener(ml = new MessageListener(cc));
+            client.login();
+            Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
+        } catch(Exception e) {
+            Bukkit.getLogger().info("[DiscordConnect] Something went horribly wrong, maybe your token is invalid? "+e);
+            gotTextChannel = false;
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
         loadMoreConfig();
         getModuleManager().addModule(new DCModule());
         if(gotTextChannel) {
@@ -57,12 +63,13 @@ public class DiscordConnect extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("Ch: "+gotTextChannel);
         if(gotTextChannel) {
             Emoji octagonal = EmojiManager.getForAlias("octagonal_sign");
             client.getChannelByID(textChannel).sendMessage(octagonal.getUnicode()+" **Server has stopped**");
         }
-        if(client!=null) { client.logout();}
+        try {
+            client.logout();
+        } catch(Exception e) { }
     }
 
     private static IDiscordClient buildDiscordClient(String token) {
@@ -92,9 +99,12 @@ public class DiscordConnect extends JavaPlugin {
                 token = (String) this.getConfig().getConfigurationSection("Discord Bot Token").getValues(false).get("token");
                 BOT_PREFIX = (String) this.getConfig().getConfigurationSection("Discord Bot Prefix").getValues(false).get("botprefix");
                 timeout = (int) this.getConfig().getConfigurationSection("Bot Timeout Amount (Leave this default unless you know what you're doing)").getValues(false).get("timeout");
+                if(token.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No token was found, shutting down"); Bukkit.getPluginManager().disablePlugin(this);}
+                if(BOT_PREFIX.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No Bot Prefix was found, setting it to !"); BOT_PREFIX="!";}
             }
         } catch(Exception e) {
             getLogger().info("[DiscordConnect] An issue has occured loading the config file: "+e);
+            Bukkit.getPluginManager().disablePlugin(this);
         }
     }
 
@@ -107,7 +117,7 @@ public class DiscordConnect extends JavaPlugin {
             gotTextChannel = false;gotAdminChannel = false;textChannel=0; }
         try {
             textChannel = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel")); } catch(Exception e) {
-            Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat): "+e.fillInStackTrace());
+            Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat): "+e);
             gotTextChannel = false; textChannel=0; }
         try {
             adminChannel = Long.parseLong(this.getConfig().getConfigurationSection("Minecraft Admin Channel ID (Leave blank to disable)").getValues(false).get("adminchannel").toString()); } catch (Exception e) {
