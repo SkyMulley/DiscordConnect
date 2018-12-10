@@ -66,7 +66,7 @@
             <artifactId>Vault</artifactId>
             <version>LATEST</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/Vault-1.6.7.jar</systemPath>
+            <systemPath>${project.basedir}/VaultAPI-1.6.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
