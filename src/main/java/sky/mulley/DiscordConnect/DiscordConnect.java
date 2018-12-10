@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import sky.mulley.DiscordConnect.Commands.CommandCore;
+import sky.mulley.DiscordConnect.GeneralLogic.BotInstance;
 import sky.mulley.DiscordConnect.Listeners.MessageListener;
 import sky.mulley.DiscordConnect.Listeners.ServerSync;
 import sky.mulley.DiscordConnect.Modules.DCModule;
@@ -73,7 +74,7 @@ public class DiscordConnect extends JavaPlugin {
 
     public CommandCore getCommandCore() { return cc;}
 
-    public IDiscordClient getBotClient() { return client;}
+    public BotInstance getBotClient() { return new BotInstance(client);}
 
     public ModuleManager getModuleManager() { return moduleManager;}
 
