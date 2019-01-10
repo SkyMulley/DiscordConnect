@@ -62,6 +62,7 @@ public class DiscordConnect extends JavaPlugin {
                     if(gotAdminChannel) {
                         Logger log = (Logger) LogManager.getRootLogger();
                         log.addAppender(new Log4JAppender());
+                        ml.setAdminconsole(client.getGuildByID(guild).getChannelByID(adminChannel));
                     }
                 }
             }, 100L);

@@ -13,6 +13,7 @@ import sx.blah.discord.handle.obj.IRole;
 public class MessageListener {
     private CommandCore cc;
     private IChannel channel = null;
+    private IChannel adminconsole = null;
     private MsgEvent eventMsg;
     private IRole role;
     DiscordMsgEvent msgEvent = new DiscordMsgEvent(eventMsg);
@@ -33,8 +34,12 @@ public class MessageListener {
                     Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "[Discord] " + ChatColor.WHITE + event.getAuthor().getName()+": " + event.getMessage().toString());
                 }
             }
+        } if (adminconsole!=null && event.getChannel().equals(adminconsole)) {
+            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(),event.getMessage().getContent());
         }
     }
 
     public void setChannel(IChannel channel) { this.channel=channel;}
+
+    public void setAdminconsole(IChannel channel) {this.adminconsole=channel;}
 }
