@@ -22,6 +22,6 @@ public class Log4JAppender extends AbstractAppender {
     @Override
     public void append(LogEvent e) {
         DiscordConnect main = (DiscordConnect) Bukkit.getServer().getPluginManager().getPlugin("DiscordConnect");
-        main.getBotClient().getData().getChannelByID(main.getAdminConsole()).sendMessage(e.getMessage().toString());
+        main.getBotClient().getData().getChannelByID(main.getAdminConsole()).sendMessage(e.getMessage().getFormattedMessage());
     }
 }

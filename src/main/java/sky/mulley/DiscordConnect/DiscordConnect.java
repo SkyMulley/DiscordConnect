@@ -59,12 +59,12 @@ public class DiscordConnect extends JavaPlugin {
                     Emoji check = EmojiManager.getForAlias("white_check_mark");
                     client.getGuildByID(guild).getChannelByID(textChannel).sendMessage(check.getUnicode()+" **Server has started**");
                     getEvents();
+                    if(gotAdminChannel) {
+                        Logger log = (Logger) LogManager.getRootLogger();
+                        log.addAppender(new Log4JAppender());
+                    }
                 }
             }, 100L);
-        }
-        if(gotAdminChannel) {
-            Logger log = (Logger) LogManager.getRootLogger();
-            log.addAppender(new Log4JAppender());
         }
     }
 
