@@ -7,12 +7,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import sky.mulley.DiscordConnect.Commands.CommandCore;
 import sky.mulley.DiscordConnect.GeneralLogic.BotInstance;
+import sky.mulley.DiscordConnect.Listeners.Log4JAppender;
 import sky.mulley.DiscordConnect.Listeners.MessageListener;
 import sky.mulley.DiscordConnect.Listeners.ServerSync;
 import sky.mulley.DiscordConnect.Modules.DCModule;
 import sky.mulley.DiscordConnect.Modules.ModuleManager;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 
 import java.io.File;
 
@@ -59,6 +62,10 @@ public class DiscordConnect extends JavaPlugin {
                 }
             }, 100L);
         }
+        if(gotAdminChannel) {
+            Logger log = (Logger) LogManager.getRootLogger();
+            log.addAppender(new Log4JAppender());
+        }
     }
 
     @Override
@@ -84,6 +91,8 @@ public class DiscordConnect extends JavaPlugin {
     public BotInstance getBotClient() { return new BotInstance(client);}
 
     public ModuleManager getModuleManager() { return moduleManager;}
+
+    public Long getAdminConsole() { return adminChannel;}
 
     private void loadConfig() {
         try {
