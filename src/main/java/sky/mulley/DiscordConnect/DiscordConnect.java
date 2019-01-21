@@ -29,6 +29,7 @@ public class DiscordConnect extends JavaPlugin {
     private CommandCore cc;
     private ServerSync listener;
     private MessageListener ml;
+    private int maxchar;
     private boolean gotTextChannel = false;
     private boolean gotAdminChannel = false;
     private ModuleManager moduleManager = new ModuleManager();
@@ -40,7 +41,7 @@ public class DiscordConnect extends JavaPlugin {
         cc = new CommandCore(BOT_PREFIX);
         try {
             client = buildDiscordClient(token);
-            client.getDispatcher().registerListener(ml = new MessageListener(cc));
+            client.getDispatcher().registerListener(ml = new MessageListener(cc,maxchar));
             client.login();
             Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
         } catch(Exception e) {
@@ -109,11 +110,12 @@ public class DiscordConnect extends JavaPlugin {
                 token = (String) this.getConfig().getConfigurationSection("Discord Bot Token").getValues(false).get("token");
                 BOT_PREFIX = (String) this.getConfig().getConfigurationSection("Discord Bot Prefix").getValues(false).get("botprefix");
                 timeout = (int) this.getConfig().getConfigurationSection("Bot Timeout Amount (Leave this default unless you know what you're doing)").getValues(false).get("timeout");
+                maxchar = (int) this.getConfig().getConfigurationSection("Max Character Limit for MC-Chat").getValues(false).get("maxcharacters");
                 if(token.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No token was found, shutting down"); Bukkit.getPluginManager().disablePlugin(this);}
                 if(BOT_PREFIX.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No Bot Prefix was found, setting it to !"); BOT_PREFIX="!";}
             }
         } catch(Exception e) {
-            getLogger().info("[DiscordConnect] An issue has occured loading the config file: "+e);
+            getLogger().info("[DiscordConnect] An issue has occurred loading the config file: "+e);
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
