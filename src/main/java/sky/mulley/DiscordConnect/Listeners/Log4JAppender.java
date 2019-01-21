@@ -28,6 +28,10 @@ public class Log4JAppender extends AbstractAppender {
         if(message.isEmpty()) {
             message = e.getMessage().getFormattedMessage();
         } else {
+            if(message.length() + e.getMessage().getFormattedMessage().length() > 1999) {
+                main.getBotClient().getData().getChannelByID(main.getAdminConsole()).sendMessage(message);
+                message = "";
+            }
             message = message + "\n" + e.getMessage().getFormattedMessage();
         }
     }
