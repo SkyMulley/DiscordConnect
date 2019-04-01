@@ -10,5 +10,7 @@ Minecraft Text Channel Guild ID (Leave blank if you're not using the server link
   mcguild: ''
 Bot Timeout Amount (Leave this default unless you know what you're doing):
   timeout: 5
+Bot Status Message (Add /pn to add the player count):
+  statusmsg: 'with /pn players!'
 Max Character Limit for MC-Chat:
   maxcharacters: 40

@@ -29,11 +29,12 @@ public class DiscordConnect extends JavaPlugin {
     private CommandCore cc;
     private ServerSync listener;
     private MessageListener ml;
-    private int maxchar;
+    private int maxchar = 40;
     private boolean gotTextChannel = false;
     private boolean gotAdminChannel = false;
     private ModuleManager moduleManager = new ModuleManager();
-    private int timeout;
+    private int timeout = 5;
+    private String botStatus;
 
     @Override
     public void onEnable() {
@@ -68,6 +69,19 @@ public class DiscordConnect extends JavaPlugin {
                 }
             }, timeout*5L);
         }
+        startStatusTracking();
+    }
+
+    private void startStatusTracking() {
+        if(botStatus.length()==0) {
+            BukkitScheduler scheduler = getServer().getScheduler();
+            scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
+                @Override
+                public void run() {
+                    client.
+                }
+
+        },timeout*5L,timeout*5L);
     }
 
     @Override
@@ -111,9 +125,11 @@ public class DiscordConnect extends JavaPlugin {
             } else {
                 token = (String) this.getConfig().getConfigurationSection("Discord Bot Token").getValues(false).get("token");
                 BOT_PREFIX = (String) this.getConfig().getConfigurationSection("Discord Bot Prefix").getValues(false).get("botprefix");
+                botStatus = (String) this.getConfig().getConfigurationSection("Bot Status Message (Add /pn to add the player count eg. 'Playing with /pn players!'").getValues(false).get("statusmsg");
                 timeout = (int) this.getConfig().getConfigurationSection("Bot Timeout Amount (Leave this default unless you know what you're doing)").getValues(false).get("timeout");
                 maxchar = (int) this.getConfig().getConfigurationSection("Max Character Limit for MC-Chat").getValues(false).get("maxcharacters");
                 if(token.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No token was found, shutting down"); Bukkit.getPluginManager().disablePlugin(this);}
+                if(botStatus.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No status message was found, disabling status");}
             }
         } catch(Exception e) {
             getLogger().info("[DiscordConnect] An issue has occurred loading the config file, please make sure all fields are set out complete with any quotation marks: "+e);
