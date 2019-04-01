@@ -12,7 +12,7 @@ public class Help extends BaseCommand {
     public Help(List<BaseCommand> CC) {
         super("Help");
         helpMessage = "See all the commands in the bot";
-        Usage = "!Help";
+        Usage = "help";
         helpViewable = false;
         this.CC = CC;
     }

@@ -12,7 +12,7 @@ public class Status extends BaseCommand {
     public Status () {
         super("Status");
         helpMessage = "Get server player count and list";
-        Usage = "!status";
+        Usage = "status";
         helpViewable = true;
     }
 

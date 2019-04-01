@@ -16,7 +16,7 @@ public class Modules extends BaseCommand {
     public Modules (List<DiscordModule> modules) {
         super("Modules");
         helpMessage = "Allows you to list all modules being used by DiscordConnect";
-        Usage = "!modules";
+        Usage = "modules";
         helpViewable = true;
         this.modules = modules;
     }

@@ -9,7 +9,7 @@ public class Info extends BaseCommand {
     public Info() {
         super("Info");
         helpMessage = "Discover more about this bot!";
-        Usage = "!info";
+        Usage = "info";
         helpViewable = true;
     }
 

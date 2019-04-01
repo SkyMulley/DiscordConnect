@@ -12,7 +12,7 @@ public class Ping extends BaseCommand {
     public Ping () {
         super("Ping");
         helpMessage = "Find out the latency between the server and client";
-        Usage = "!ping";
+        Usage = "ping";
         helpViewable = true;
     }
 
