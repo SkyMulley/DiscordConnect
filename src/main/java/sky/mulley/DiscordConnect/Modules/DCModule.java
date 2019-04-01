@@ -12,6 +12,6 @@ public class DCModule extends DiscordModule {
         addCommand(new Status());
         addCommand(new Info());
         addCommand(new Modules(main.getModuleManager().getModules()));
-        addCommand(new Help(getCommands()));
+        addCommand(new Help(getCommands(),main.getBotPrefix()));
     }
 }
