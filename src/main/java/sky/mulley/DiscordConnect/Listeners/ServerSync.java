@@ -70,8 +70,8 @@ public class ServerSync implements org.bukkit.event.Listener {
         String advancementName = Arrays.stream(rawAdvancementName.substring(rawAdvancementName.lastIndexOf("/") + 1).toLowerCase().split("_"))
                 .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1))
                 .collect(Collectors.joining(" "));
-        if(getPlayerGroup(event.getPlayer()) != null) {channel.sendMessage("**"+trophy.getUnicode()+" ["+getPlayerGroup(event.getPlayer())+"]"+event.getPlayer().getName()+" | Achivement Unlocked! ["+advancementName+"]**"); } else {
-            channel.sendMessage("**"+trophy.getUnicode()+" "+event.getPlayer().getName()+" | Achivement Unlocked! ["+advancementName+"]**");
+        if(getPlayerGroup(event.getPlayer()) != null) {channel.sendMessage("**"+trophy.getUnicode()+" ["+getPlayerGroup(event.getPlayer())+"]"+event.getPlayer().getName()+" has unlocked an advancement ["+advancementName+"]**"); } else {
+            channel.sendMessage("**"+trophy.getUnicode()+" "+event.getPlayer().getName()+" has unlocked an advancement ["+advancementName+"]**");
         }
     }
 
