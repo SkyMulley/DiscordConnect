@@ -7,7 +7,7 @@ import sky.mulley.DiscordConnect.DiscordConnect;
 public class DCModule extends DiscordModule {
     private DiscordConnect main = (DiscordConnect) Bukkit.getPluginManager().getPlugin("DiscordConnect");
     public DCModule() {
-        super("DCModule","Sky");
+        super("Default Module","Sky");
         addCommand(new Ping());
         addCommand(new Status());
         addCommand(new Info());
