@@ -66,7 +66,7 @@ public class DiscordConnect extends JavaPlugin {
                         ml.setAdminconsole(client.getGuildByID(guild).getChannelByID(adminChannel));
                     }
                 }
-            }, 100L);
+            }, timeout*5L);
         }
     }
 
