@@ -96,6 +96,8 @@ public class DiscordConnect extends JavaPlugin {
 
     public Long getAdminConsole() { return adminChannel;}
 
+    public String getBotPrefix() {return BOT_PREFIX;}
+
     private void loadConfig() {
         try {
             if(!getDataFolder().exists()) {
