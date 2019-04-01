@@ -1,7 +1,7 @@
 Discord Bot Token:
   token: ''
 Discord Bot Prefix:
-  botprefix: ''
+  botprefix: '!'
 Minecraft Text Channel ID (Leave blank to disable):
   textchannel: ''
 Minecraft Admin Channel ID (Leave blank to disable):
