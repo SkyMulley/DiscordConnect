@@ -23,12 +23,12 @@ public class Status extends BaseCommand {
         String Players = "";
         EmbedBuilder builder = new EmbedBuilder();
         if (Bukkit.getOnlinePlayers().size() == 0) {
-            builder.appendField(Bukkit.getServerName()+" is Online!", "No players are online right now!", true);
+            builder.appendField("Server is Online!", "No players are online right now!", true);
         } else {
             if (Bukkit.getOnlinePlayers().size() != 1) {
-                builder.appendField(Bukkit.getServerName()+" is Online!", "with " + PlayerCount + " players connected!", true);
+                builder.appendField("Server is Online!", "with " + PlayerCount + " players connected!", true);
             } else {
-                builder.appendField(Bukkit.getServerName()+" is Online!", "with " + PlayerCount + " player connected!", true);
+                builder.appendField("Server is Online!", "with " + PlayerCount + " player connected!", true);
             }
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (Bukkit.getOnlinePlayers().size() != 1) {
