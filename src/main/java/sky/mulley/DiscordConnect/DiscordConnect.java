@@ -112,10 +112,9 @@ public class DiscordConnect extends JavaPlugin {
                 timeout = (int) this.getConfig().getConfigurationSection("Bot Timeout Amount (Leave this default unless you know what you're doing)").getValues(false).get("timeout");
                 maxchar = (int) this.getConfig().getConfigurationSection("Max Character Limit for MC-Chat").getValues(false).get("maxcharacters");
                 if(token.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No token was found, shutting down"); Bukkit.getPluginManager().disablePlugin(this);}
-                if(BOT_PREFIX.length()==0) {Bukkit.getLogger().info("[DiscordConnect] No Bot Prefix was found, setting it to !"); BOT_PREFIX="!";}
             }
         } catch(Exception e) {
-            getLogger().info("[DiscordConnect] An issue has occurred loading the config file: "+e);
+            getLogger().info("[DiscordConnect] An issue has occurred loading the config file, please make sure all fields are set out complete with any quotation marks: "+e);
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
