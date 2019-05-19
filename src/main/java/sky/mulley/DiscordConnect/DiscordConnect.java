@@ -16,6 +16,8 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import sx.blah.discord.handle.obj.ActivityType;
+import sx.blah.discord.handle.obj.StatusType;
 
 import java.io.File;
 
@@ -73,15 +75,16 @@ public class DiscordConnect extends JavaPlugin {
     }
 
     private void startStatusTracking() {
-        if(botStatus.length()==0) {
+        if(botStatus.length()!=0) {
             BukkitScheduler scheduler = getServer().getScheduler();
             scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
                 @Override
                 public void run() {
-                    client.
+                    client.changePresence(StatusType.ONLINE, ActivityType.PLAYING, botStatus.replace("/pn", String.valueOf(Bukkit.getOnlinePlayers().size())));
                 }
 
-        },timeout*5L,timeout*5L);
+            }, timeout * 5L, timeout * 5L);
+        }
     }
 
     @Override
