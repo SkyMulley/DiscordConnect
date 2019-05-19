@@ -36,7 +36,7 @@ public class DiscordConnect extends JavaPlugin {
     private boolean gotAdminChannel = false;
     private ModuleManager moduleManager = new ModuleManager();
     private int timeout = 5;
-    private String botStatus;
+    private String botStatus = "";
 
     @Override
     public void onEnable() {
