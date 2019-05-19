@@ -48,7 +48,7 @@ public class DiscordConnect extends JavaPlugin {
             client.login();
             Bukkit.getLogger().info("[DiscordConnect] We have Discord and are logged in!");
         } catch(Exception e) {
-            Bukkit.getLogger().info("[DiscordConnect] Something went horribly wrong, maybe your token is invalid? "+e);
+            Bukkit.getLogger().info("[DiscordConnect] Something went horribly wrong, maybe your token is invalid?");
             gotTextChannel = false;
             Bukkit.getPluginManager().disablePlugin(this);
         }
@@ -145,15 +145,15 @@ public class DiscordConnect extends JavaPlugin {
         gotTextChannel = true;
         try {
             guild = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel Guild ID (Leave blank if you're not using the server link)").getValues(false).get("mcguild")); } catch(Exception e) {
-            Bukkit.getLogger().info("Failed to get Guild details from config (Could be empty or invalid, disabling MC Links): "+e);
+            Bukkit.getLogger().info("Failed to get Guild details from config (Could be empty or invalid, disabling MC Links)");
             gotTextChannel = false;gotAdminChannel = false;textChannel=0; }
         try {
             textChannel = Long.parseLong( (String) this.getConfig().getConfigurationSection("Minecraft Text Channel ID (Leave blank to disable)").getValues(false).get("textchannel")); } catch(Exception e) {
-            Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat): "+e);
+            Bukkit.getLogger().info("Failed to get MC Channel details from config (Could be empty or invalid, disabling MC Chat)");
             gotTextChannel = false; textChannel=0; }
         try {
             adminChannel = Long.parseLong(this.getConfig().getConfigurationSection("Minecraft Admin Channel ID (Leave blank to disable)").getValues(false).get("adminchannel").toString()); } catch (Exception e) {
-            Bukkit.getLogger().info("Failed to get Admin Console details from config (Could be empty or invalid, disabling MC Admin Console)"+e);
+            Bukkit.getLogger().info("Failed to get Admin Console details from config (Could be empty or invalid, disabling MC Admin Console)");
             gotAdminChannel = false;}
     }
 
